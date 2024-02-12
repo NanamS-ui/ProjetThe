@@ -28,11 +28,11 @@
                         <h3 class="mb-4 text-center">Have an account?</h3>
                         <form action="./pages/traitementloginuser.php" class="signin-form" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" name="user">
+                                <input type="text" class="form-control" placeholder="Username" name="user" value="user1">
                             </div>
                             <div class="form-group">
                                 <input id="password-field" type="password" class="form-control" placeholder="Password"
-                                    name="mdp" required>
+                                    name="mdp" value="password1" required>
                                 <span toggle="#password-field"
                                     class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
