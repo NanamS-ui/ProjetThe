@@ -135,7 +135,7 @@
 		$cueilleur = array();
 		if ($nombre>0) {
 			while ($donnees = mysqli_fetch_assoc($resultat)) {
-			$cueilleur[] = array('id'=>$donnees['id'],'nom'=>$donnees['nom'],'genre'=>$donnees['genre']);
+			$cueilleur[] = array('id'=>$donnees['id'],'nom'=>$donnees['nom'],'genre'=>$donnees['genre'],'date_naissance'=>$donnees['date_naissance']);
 			}
 		}
 		return $cueilleur;
@@ -268,7 +268,7 @@
 			$categorieDepense[] = array('id'=>$donnees['id'],'surface'=>$donnees['surface'],'idVarieteDuThe'=>$donnees['idVarieteDuThe']);
 			}
 		}
-		return $categorieDepense[0];
+		return $categorieDepense;
 	}
 	function kiloParParcelle($id)
 	{//maka nombre de kilo par parcelle dans un mois

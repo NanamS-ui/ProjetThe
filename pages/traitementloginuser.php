@@ -7,7 +7,7 @@ if (verificationUserExiste($login)) {
         $user=getUser($login,$pw)[0];
         session_start();
         $_SESSION["user"]=$user;
-        header('Location:accueil.php');
+        header('Location:parcelle.html');
 
     }
     else{
