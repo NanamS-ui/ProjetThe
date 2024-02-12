@@ -1,4 +1,5 @@
-<?php 
+<?php
+include "../inc/fonction.php";
 $id=$_POST["id_parcelle"];
 $surface=$_POST['surface'];
 $var=$_POST["var"];
