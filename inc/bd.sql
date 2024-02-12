@@ -34,3 +34,33 @@ CREATE TABLE depense (
     description VARCHAR(20),
     valeur DECIMAL(10,2)
 );
+-- Données de test pour la table 'user'
+INSERT INTO user (login, pw, type) VALUES
+('user1', 'password1', 'user'),
+('admin1', 'password2', 'admin'),
+('user2', 'password3', 'user');
+
+-- Données de test pour la table 'variete_du_the'
+INSERT INTO variete_du_the (nom, occupation, rendement) VALUES
+('Variété A', 1.5, 10.2),
+('Variété B', 1.8, 8.5),
+('Variété C', 1.6, 9.3);
+
+-- Données de test pour la table 'parcelle'
+INSERT INTO parcelle (surface, idVarieteDuThe) VALUES
+(20.5, 1),
+(15.7, 2),
+(30.2, 3);
+
+-- Données de test pour la table 'cueilleur'
+INSERT INTO cueilleur (nom, genre, date_naissance) VALUES
+('Jean Dupont', 'M', '1990-05-15'),
+('Marie Leclerc', 'F', '1985-09-20'),
+('Pierre Dubois', 'M', '1995-02-10');
+
+-- Données de test pour la table 'depense'
+INSERT INTO depense (date_depense, description, valeur) VALUES
+('2024-02-10', 'Engrais', 150.50),
+('2024-02-11', 'Carburant', 200.75),
+('2024-02-12', 'Logistique', 300.20);
+
