@@ -44,6 +44,8 @@
                             
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button><br></br>
+                                <a href="pages/admin.php" style="display: flex;justify-content:center;border-radius:20px;width:250px;margin-left:20px; ">Sign Admin</a>
+
                             </div>
                         </form>
                     </div>
@@ -51,7 +53,6 @@
             </div>
         </div>
     </section>
-    <a href="pages/admin.php">Sign Admin</a>
 
     <script src="assets/login_user/js/jquery.min.js"></script>
     <script src="assets/login_user/js/popper.js"></script>

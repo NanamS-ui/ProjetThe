@@ -27,11 +27,11 @@
                     <div class="login-wrap p-0">
                         <form action="./traitementloginadmin.php" class="signin-form" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" name="user" value="admin1">
+                                <input type="text" class="form-control" placeholder="Username" name="user">
                             </div>
                             <div class="form-group">
                                 <input id="password-field" type="password" class="form-control" placeholder="Password"
-                                    name="mdp" value="password2" required>
+                                    name="mdp" required>
                                 <span toggle="#password-field"
                                     class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
