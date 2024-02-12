@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,7 +26,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
                         <h3 class="mb-4 text-center">Have an account?</h3>
-                        <form action="#" class="signin-form">
+                        <form action="./pages/traitementloginuser.php" class="signin-form" method="post">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Username" name="user">
                             </div>
@@ -36,6 +36,12 @@
                                 <span toggle="#password-field"
                                     class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
+                            <?php
+                            if (isset($_GET['error']) && $_GET['error'] != null) {
+                                $erreur=$_GET['error']; ?>
+                                <p style="color: red;"><?php echo $erreur ?></p>
+                            <?php } ?> 
+                            
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button><br></br>
                             </div>
@@ -45,7 +51,7 @@
             </div>
         </div>
     </section>
-    <a href="pages/admin.html">Sign Admin</a>
+    <a href="pages/admin.php">Sign Admin</a>
 
     <script src="assets/login_user/js/jquery.min.js"></script>
     <script src="assets/login_user/js/popper.js"></script>

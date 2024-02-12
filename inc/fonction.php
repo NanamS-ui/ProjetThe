@@ -4,7 +4,7 @@
 		//verifiction si c'est un admin return bollean
 		$reponse = false;
 		$db = dbconnect();
-		$query = "select * from amdin where login = '$login' and where type = 'admnin'";
+		$query = "select * from user where login = '$login' and type = 'admin'";
 		$resultat = mysqli_query($db,$query);
 		$nombre  = mysqli_num_rows($resultat);
 		if($nombre>0){
@@ -16,7 +16,7 @@
 		//verifiction si c'est un user return bollean
 		$reponse = false;
 		$db = dbconnect();
-		$query = "select * from amdin where login = '$login'";
+		$query = "select * from user where login = '$login'";
 		$resultat = mysqli_query($db,$query);
 		$nombre  = mysqli_num_rows($resultat);
 		if($nombre>0){
@@ -45,7 +45,7 @@
 		$user = array();
 		if ($nombre>0) {
 			while ($donnees = mysqli_fetch_assoc($resultat)) {
-			$user[] = array('id'=>$resultat['id'],'login'=>$resultat['login'],'pw'=>$resultat['pw'],'type'=>$resultat['type']);
+			$user[] = $donnees;
 			}
 		}
 		return $user;

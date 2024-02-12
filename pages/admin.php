@@ -25,7 +25,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
-                        <form action="#" class="signin-form">
+                        <form action="./traitementloginadmin.php" class="signin-form" method="post">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Username" name="user">
                             </div>
@@ -35,6 +35,12 @@
                                 <span toggle="#password-field"
                                     class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
+                            <?php
+                            if (isset($_GET['error']) && $_GET['error'] != null) {
+                                $erreur=$_GET['error']; ?>
+                                <strong style="color: red;"><?php echo $erreur ?></strong>
+                            <?php } ?> 
+                            
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary submit px-3">Sign
                                     In</button><br></br>
