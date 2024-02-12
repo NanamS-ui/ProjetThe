@@ -34,6 +34,8 @@ CREATE TABLE depense (
     description VARCHAR(20),
     valeur DECIMAL(10,2)
 );
+create table salaire(montant DECIMAL(10,2) not null);
+insert into salaire values(100000.00);
 -- Données de test pour la table 'user'
 INSERT INTO user (login, pw, type) VALUES
 ('user1', 'password1', 'user'),
