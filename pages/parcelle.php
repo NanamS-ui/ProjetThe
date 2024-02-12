@@ -49,7 +49,6 @@
 <body>
 
     <?php include 'header.html' ?>
-    <a href="./pages/modifParcelle.php">Voir</a> 
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">

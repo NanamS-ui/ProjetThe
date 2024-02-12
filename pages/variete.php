@@ -46,7 +46,7 @@
 <?php if (isset($_GET["message"]) && $_GET["message"] != null) { ?>
     <script>alert("<?php echo htmlspecialchars($_GET["message"]); ?>")</script>
 <?php } ?>
-    <!--<?php include 'header.html' ?>-->
+    <?php include 'header.html' ?>
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">

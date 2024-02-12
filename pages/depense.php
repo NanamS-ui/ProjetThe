@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Cueilleurs</title>
+    <title>Category & Spent</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../assets/CRUD/style.css">
-    <script type="text/javascript" src="../assets/cueilleur/index.js"></script>
+    <script type="text/javascript" src="../assets/depense/index.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -41,10 +41,11 @@
         });
     </script>
 </head>
+
+<body>
 <?php if (isset($_GET["message"]) && $_GET["message"] != null) { ?>
     <script>alert("<?php echo htmlspecialchars($_GET["message"]); ?>")</script>
 <?php } ?>
-<body>
     <?php include 'header.html' ?>
     <div class="container-xl">
         <div class="table-responsive">
@@ -52,13 +53,13 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Manage <b>Cueilleurs</b></h2>
+                            <h2>Manage <b>Category & Spent</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="#addCueilleurModal" class="btn btn-success" data-toggle="modal"><i
-                                    class="material-icons">&#xE147;</i> <span>Add New Cueilleurs</span></a>
-                            <a href="#deleteCueilleurModal" class="btn btn-danger" data-toggle="modal"><i
-                                    class="material-icons">&#xE15C;</i> <span>Delete Cueilleurs</span></a>
+                            <a href="#addDepenseModal" class="btn btn-success" data-toggle="modal"><i
+                                    class="material-icons">&#xE147;</i> <span>Add New Category & Spent</span></a>
+                            <a href="#deleteDepenseModal" class="btn btn-danger" data-toggle="modal"><i
+                                    class="material-icons">&#xE15C;</i> <span>Delete Category & Spent</span></a>
                         </div>
                     </div>
                 </div>
@@ -66,10 +67,9 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nom</th>
-                            <th>Genre</th>
-                            <th>Date naissance</th>
-                            <th></th>
+                            <th>Date dépense</th>
+                            <th>Description</th>
+                            <th>Valeur</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,26 +80,26 @@
         </div>
     </div>
     <!-- Edit Modal HTML -->
-    <div id="addCueilleurModal" class="modal fade">
+    <div id="addDepenseModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="insertCueilleur.php" method="post">
+                <form action="insertDepense.php" method="post">
                     <div class="modal-header">
-                        <h4 class="modal-title">Add Cueilleur</h4>
+                        <h4 class="modal-title">Add Category & Spent</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Nom</label>
-                            <input type="text" class="form-control" name="nom" required>
+                            <label>Date dépense</label>
+                            <input type="date" class="form-control" name="dtd" required>
                         </div>
                         <div class="form-group">
-                            <label>Genre</label>
-                            <input type="text" class="form-control" name="genre" required>
+                            <label>Description</label>
+                            <select name="depense" id="depense"></select>
                         </div>
                         <div class="form-group">
-                            <label>Date de naissance</label>
-                            <input type="date" class="form-control" name="dtn" required>
+                            <label>Valeur</label>
+                            <input type="text" class="form-control" name="val" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -111,26 +111,26 @@
         </div>
     </div>
     <!-- Edit Modal HTML -->
-    <div id="editParcelleModal" class="modal fade">
+    <div id="editDepenseModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="#">
                     <div class="modal-header">
-                        <h4 class="modal-title">Edit Cueilleur</h4>
+                        <h4 class="modal-title">Edit Category & Spent</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Nom</label>
-                            <input type="text" class="form-control" name="nom" required>
+                            <label>Date dépense</label>
+                            <input type="date" class="form-control" name="dtd" required>
                         </div>
                         <div class="form-group">
-                            <label>Genre</label>
-                            <input type="text" class="form-control" name="var" required>
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="descri" required>
                         </div>
                         <div class="form-group">
-                            <label>Date de naissance</label>
-                            <input type="text" class="form-control" name="dtn" required>
+                            <label>Valeur</label>
+                            <input type="text" class="form-control" name="val" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -142,12 +142,12 @@
         </div>
     </div>
     <!-- Delete Modal HTML -->
-    <div id="deleteCueilleurModal" class="modal fade">
+    <div id="deleteDepenseModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="#">
                     <div class="modal-header">
-                        <h4 class="modal-title">Delete Cueilleur</h4>
+                        <h4 class="modal-title">Delete Category & Spent</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
