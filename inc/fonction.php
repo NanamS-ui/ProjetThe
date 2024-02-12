@@ -376,7 +376,7 @@
 		$parcelles = getAllParcelle();
 		$somme = 0;
 		for ($i=0; $i < count($parcelles); $i++) { 
-			$somme+=kiloRehetra($parcelle['id'],$date);
+			$somme+=kiloParParcelle($parcelles[$i]['id'],$date);
 		}
 		return $somme;
 	}
