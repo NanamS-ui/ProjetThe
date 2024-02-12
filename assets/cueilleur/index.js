@@ -37,7 +37,7 @@ window.addEventListener("load", function() {
         xhr.send();
     }
 
-    function getListeVariete() {
+    /*function getListeVariete() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
@@ -55,10 +55,10 @@ window.addEventListener("load", function() {
         };
         xhr.open("GET", "listecueilleur.php", false);
         xhr.send();
-    }
+    }*/
 
     getListeCueilleur();
-    getListeVariete();
+    //getListeVariete();
 
     // Function to fill edit form
     function preRemplirForm(parcelleId) {
