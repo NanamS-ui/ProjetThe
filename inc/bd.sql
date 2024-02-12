@@ -27,15 +27,45 @@ CREATE TABLE cueilleur (
     genre ENUM('M', 'F') NOT NULL,
     date_naissance DATE
 );
-
-CREATE TABLE depense (
-    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    date_depense DATE,
-    description VARCHAR(20),
-    valeur DECIMAL(10,2)
+    CREATE TABLE depense (
+        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        date_depense DATE,
+        id_categorie int ,
+        valeur DECIMAL(10,2),
+        FOREIGN KEY (id_categorie) REFERENCES categorieDepense(id)
 );
+
 create table salaire(montant DECIMAL(10,2) not null);
 insert into salaire values(100000.00);
+
+create table categorieDepense(id int PRIMARY KEY AUTO_INCREMENT,categorie VARCHAR(255) not null);
+
+INSERT INTO categorieDepense (categorie)VALUES
+('Engrais'),
+('Carburant'),
+('Logistique');
+
+
+create table date_de_plantation(date_plantation date not null,id_parcelle int not null, FOREIGN KEY (id_parcelle) references parcelle(id));
+
+create table cueillette(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    date_de_cueillette date not null, 
+    id_cueilleur int not null,
+    id_parcelle int not null,
+    poids_cueilli DECIMAL(10,2) not null,
+    FOREIGN KEY(id_cueilleur ) REFERENCES cueilleur(id),
+    FOREIGN KEY(id_parcelle) references parcelle(id)
+    );
+-- Insertion de données de test avec id_cueilleur et id_parcelle entre 1 et 3 et date de cueillette après 1990-05-15
+
+    INSERT INTO cueillette (date_de_cueillette, id_cueilleur, id_parcelle, poids_cueilli) VALUES
+    ('1990-06-01', 1, 1, 5.25),
+    ('1992-08-20', 2, 2, 7.50),
+    ('1995-10-15', 3, 3, 3.75),
+    ('1998-12-05', 1, 2, 2.00),
+    ('2000-07-10', 2, 1, 9.80);
+
 -- Données de test pour la table 'user'
 INSERT INTO user (login, pw, type) VALUES
 ('user1', 'password1', 'user'),
@@ -61,8 +91,8 @@ INSERT INTO cueilleur (nom, genre, date_naissance) VALUES
 ('Pierre Dubois', 'M', '1995-02-10');
 
 -- Données de test pour la table 'depense'
-INSERT INTO depense (date_depense, description, valeur) VALUES
-('2024-02-10', 'Engrais', 150.50),
-('2024-02-11', 'Carburant', 200.75),
-('2024-02-12', 'Logistique', 300.20);
+INSERT INTO depense (date_depense, id_categorie, valeur) VALUES
+('2024-02-10', 1, 150.50),
+('2024-02-11', 2, 200.75),
+('2024-02-12', 3, 300.20);
 
