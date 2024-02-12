@@ -87,37 +87,37 @@
 	function getAllParcelle(){
 		//prend tous les Partielle
 		$db = dbconnect();
-		$query = "select * from parcelle ";
+		$query = "select parcelle.id as id,surface,variete_du_the.nom as nom from parcelle join variete_du_the on variete_du_the.id= parcelle.idVarieteDuThe";
 		$resultat = mysqli_query($db,$query);
 		$nombre  = mysqli_num_rows($resultat);
 		$parcelle = array();
 		if ($nombre>0) {
 			while ($donnees = mysqli_fetch_assoc($resultat)) {
-			$parcelle[] = array('id'=>$donnees['id'],'surface'=>$donnees['surface'],'idVarieteDuThe'=>$donnees['idVarieteDuThe']);
+			$parcelle[] = array('id'=>$donnees['id'],'surface'=>$donnees['surface'],'nom'=>$donnees['nom']);
 			}
 		}
 		return $parcelle;
 	}
 	function getIdParcelle($parcelle){
-		//return l'id du variete du the
+		//return l'id du parcelle du the
 		return $parcelle['id'];
 	}
 	function deleteParcelle($id){
-		//suppresion d' un variete de the
+		//suppresion d' un parcelle de the
 		$db = dbconnect();
 		$query = "delete from parcelle where id = '$id'";
 		mysqli_query($db,$query);
 		return "suppression avec succes";
 	}
 	function insertParcelle($surface,$idVarieteDuThe){
-		//insertion d' un variete de the
+		//insertion d' un parcelle de the
 		$db = dbconnect();
 		$query = "insert into parcelle values(null,'$surface','$idVarieteDuThe')";
 		mysqli_query($db,$query);
 		return "insertion effectuer avec succes";
 	}
 	function updateParcelle($id,$surface,$idVarieteDuThe){
-		//update d' un variete de the
+		//update d' un parcelle de the
 		$db = dbconnect();
 		$query = "update parcelle set surface='$surface', idVarieteDuThe='$idVarieteDuThe' where id = '$id'";
 		mysqli_query($db,$query);
@@ -170,7 +170,7 @@
 	function getAllDepense(){
 		//prend tous les cueilleur
 		$db = dbconnect();
-		$query = "select * from depense ";
+		$query = "select depense.id as id,date_depense,categorieDepense.categorie as description,valeur from depense join categorieDepense on categorieDepense.id = depense.id_categorie";
 		$resultat = mysqli_query($db,$query);
 		$nombre  = mysqli_num_rows($resultat);
 		$depense = array();
@@ -213,7 +213,6 @@
 		$query = "select * from salaire ";
 		$resultat = mysqli_query($db,$query);
 		$nombre  = mysqli_num_rows($resultat);
-		$valiny;
 		if ($nombre>0) {
 			while ($donnees = mysqli_fetch_assoc($resultat)) {
 				$valiny = $donnees['montant'];
@@ -229,5 +228,94 @@
 		mysqli_query($db,$query);
 		return "update avec succes";
 	}
-
+	function getParcelleParId($id){
+		//maka parcelle avec un id
+		$db = dbconnect();
+		$query = "select * from parcelle where id ='$id'";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		$parcelle = array();
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+			$parcelle[] = array('id'=>$donnees['id'],'surface'=>$donnees['surface'],'idVarieteDuThe'=>$donnees['idVarieteDuThe']);
+			}
+		}
+		return $parcelle[0];
+	}
+	function getVarieteDuTheParId($id){
+		//maka varieteDeThe avec un id
+		$db = dbconnect();
+		$query = "select * from variete_du_the where id ='$id'";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		$varieteDeThe = array();
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+			$varieteDeThe[] = array('id'=>$donnees['id'],'nom'=>$donnees['nom'],'occupation'=>$donnees['occupation'],'rendement'=>$donnees['rendement']);
+			}
+		}
+		return $varieteDeThe[0];
+	}
+	function getCategorieDepenses(){
+		//maka categorie de depense
+		$db = dbconnect();
+		$query = "select * from categorieDepense";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		$categorieDepense = array();
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+			$categorieDepense[] = array('id'=>$donnees['id'],'surface'=>$donnees['surface'],'idVarieteDuThe'=>$donnees['idVarieteDuThe']);
+			}
+		}
+		return $categorieDepense[0];
+	}
+	function kiloParParcelle($id)
+	{//maka nombre de kilo par parcelle dans un mois
+		$parcelle = getParcelleParId($id);
+		$variete_du_the = getVarieteDuTheParId($parcelle['idVarieteDuThe']);
+		$surfacePied = $variete_du_the['occupation'];
+		$surfaceParcelle = $parcelle['surface'];
+		$nombreDePied = $surfaceParcelle/$surfacePied; 
+		$rendement = $variete_du_the['rendement'];
+		return  $rendement*$nombreDePied;
+	}
+	function getNombreDeMois($id,$date){
+		//maka ny nombre de mois depuis la date de plantation et cette date en parametre
+		$db = dbconnect();
+		$query = "select TIMESTAMPDIFF(MONTH,date_plantation,'$date') as difference from date_de_plantation where id = '$id'";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+				$valiny = $donnees['difference'];
+			}
+		}
+		return $valiny;
+	}
+	function kiloRehetra($id,$date){
+		//maka ny rendement rehetra depuis la premiere plantation;
+		$nombreDeMoi = getNombreDeMois($id,$date);
+		$kilo = kiloParParcelle($id);
+		return $nombreDeMoi*$kilo;
+	}
+	function kiloCueilli($idParcelle,$date){
+		//maka ny kilo rehetre cueillit depuis la date de plantation et la date en parametre
+		$db = dbconnect();
+		$query = " select sum(poids_cueillit) as somme from cueillette where id_parcelle = '$idParcelle' and date_de_cuillette<= '$date'";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+				$valiny = $donnees['somme'];
+			}
+		}
+		return $valiny;
+	}
+	function kiloRestant($idParcelle,$date){
+		//kilo restant sur cette parcelle en cette date en parametre
+		$kiloRehetra = kiloRehetra($idParcelle,$date);
+		$kiloCueilli = kiloCueilli($idParcelle,$date);
+		return $kiloRehetra - $kiloCueilli;
+	}
 ?>
