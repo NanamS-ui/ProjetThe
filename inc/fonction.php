@@ -34,7 +34,7 @@
 		if ($nombre>0) {
 			$reponse = true;	
 		}
-		return $repose;
+		return $reponse;
 	}
 	function getUser($login,$password){
 		//return un table admin s' il exist
