@@ -280,29 +280,14 @@
 		$rendement = $variete_du_the['rendement'];
 		return  $rendement*$nombreDePied;
 	}
-	function getNombreDeMois($id,$date){
-		//maka ny nombre de mois depuis la date de plantation et cette date en parametre
-		$db = dbconnect();
-		$query = "select TIMESTAMPDIFF(MONTH,date_plantation,'$date') as difference from date_de_plantation where id = '$id'";
-		$resultat = mysqli_query($db,$query);
-		$nombre  = mysqli_num_rows($resultat);
-		if ($nombre>0) {
-			while ($donnees = mysqli_fetch_assoc($resultat)) {
-				$valiny = $donnees['difference'];
-			}
-		}
-		return $valiny;
-	}
-	function kiloRehetra($id,$date){
-		//maka ny rendement rehetra depuis la premiere plantation;
-		$nombreDeMoi = getNombreDeMois($id,$date);
-		$kilo = kiloParParcelle($id);
-		return $nombreDeMoi*$kilo;
-	}
 	function kiloCueilli($idParcelle,$date){
 		//maka ny kilo rehetre cueillit depuis la date de plantation et la date en parametre
+		$dateObj = new DateTime($date);
+		$dateObj->modify('first day of this month');
+		$debut_du_mois = $dateObj->format('Y-m-d');
+
 		$db = dbconnect();
-		$query = " select sum(poids_cueillit) as somme from cueillette where id_parcelle = '$idParcelle' and date_de_cuillette<= '$date'";
+		$query = " select sum(poids_cueilli) as somme from cueillette where id_parcelle = '$idParcelle' and date_de_cueillette BETWEEN '$debut_du_mois' AND '$date'";
 		$resultat = mysqli_query($db,$query);
 		$nombre  = mysqli_num_rows($resultat);
 		if ($nombre>0) {
@@ -314,8 +299,91 @@
 	}
 	function kiloRestant($idParcelle,$date){
 		//kilo restant sur cette parcelle en cette date en parametre
-		$kiloRehetra = kiloRehetra($idParcelle,$date);
+		$kiloRehetra = kiloParParcelle($idParcelle,$date);
 		$kiloCueilli = kiloCueilli($idParcelle,$date);
 		return $kiloRehetra - $kiloCueilli;
 	}
+	function getCueilletteAll()
+	{
+		//maka ny cueillette rehetra
+		$db = dbconnect();
+		$query = "select * from cueillette";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		$cueillette = array();
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+			$cueillette[] = array('id'=>$donnees['id'],'date_de_cueillette'=>$donnees['date_de_cueillette'],'id_cueilleur'=>$donnees['id_cueilleur'],'id_parcelle'=>$donnees['id_parcelle'],'poids_cueilli'=>$donnees['poids_cueilli']);
+			}
+		}
+		return $cueillette;		
+
+	}
+	function getSommeDepense($dateDebut,$dateFin){
+		//maka somme depense anelanelany reo date reo
+		$db = dbconnect();
+		$query = " select sum(valeur) as somme from depense where date_depense  BETWEEN '$dateDebut' AND '$dateFin'";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+				$valiny = $donnees['somme'];
+			}
+		}
+		return $valiny;
+	}
+	function getSommeDepenseRehetra(){
+		// return somme depense rehetra
+		$db = dbconnect();
+		$query = " select sum(valeur) as somme from depense";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+				$valiny = $donnees['somme'];
+			}
+		}
+		return $valiny;
+	}
+	function getPoidsTotalCueilliRehetra(){
+		//poids cueilli rehetra mintsy
+		$db = dbconnect();
+		$query = "select sum(poids_cueilli) as somme from cueillette";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+			$somme = $donnees['somme'];
+			}
+		}
+		return $somme;
+	}
+	function getPoidsTotalCueilliRehetraEntreDate($dateDebut,$dateFin){
+		//poids cueilli rehetra entre 2 dates
+		$db = dbconnect();
+		$query = "select sum(poids_cueilli) as somme from cueillette where date_de_cueillette  BETWEEN '$dateDebut' AND '$dateFin'";
+		$resultat = mysqli_query($db,$query);
+		$nombre  = mysqli_num_rows($resultat);
+		if ($nombre>0) {
+			while ($donnees = mysqli_fetch_assoc($resultat)) {
+			$somme = $donnees['somme'];
+			}
+		}
+		return $somme;
+	}
+	function getPoidsTotalRehetra(){
+		$date = date("Y-m-d");
+		$parcelles = getAllParcelle();
+		$somme = 0;
+		for ($i=0; $i < count($parcelles); $i++) { 
+			$somme+=kiloParParcelle($parcelles[$i]['id'],$date);
+		}
+		return $somme;
+	}
+	function getCoutDeRevient($dateDebut,$dateFin){
+		$totalCueilli = getPoidsTotalCueilliRehetra($dateDebut,$dateFin);
+		$sommeDepense = getSommeDepense($dateDebut,$dateFin);
+		return $sommeDepense/$totalCueilli;
+	}
+
 ?>
