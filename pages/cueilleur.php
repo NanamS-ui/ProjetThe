@@ -119,18 +119,20 @@
                         <h4 class="modal-title">Edit Cueilleur</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
+
+                            <input type="hidden" class="form-control" name="id" id="id" required>
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Nom</label>
-                            <input type="text" class="form-control" name="nom" required>
+                            <input type="text" class="form-control" name="nom" id="nom" required>
                         </div>
                         <div class="form-group">
                             <label>Genre</label>
-                            <input type="text" class="form-control" name="var" required>
+                            <input type="text" class="form-control" name="genre" id="genre" required>
                         </div>
                         <div class="form-group">
                             <label>Date de naissance</label>
-                            <input type="text" class="form-control" name="dtn" required>
+                            <input type="text" class="form-control" name="dtn" id="dtn" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -162,7 +164,7 @@
             </div>
         </div>
     </div>
-    <!--<?php include 'footer.html' ?>-->
+    <?php include 'footer.html' ?>
 </body>
 
 </html>

@@ -46,7 +46,7 @@
 <?php if (isset($_GET["message"]) && $_GET["message"] != null) { ?>
     <script>alert("<?php echo htmlspecialchars($_GET["message"]); ?>")</script>
 <?php } ?>
-    <?php include 'header.html' ?>
+<?php include 'header.html' ?>
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -114,23 +114,24 @@
     <div id="editVarieteModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="#">
+                <form action="traitementModifVariete.php" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Variété</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
+                    <input type="hidden" class="form-control" name="id" id="id" required>
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nom</label>
-                        <input type="text" class="form-control" name="nom" required>
+                        <input type="text" class="form-control" name="nom" id="nom" required>
                     </div>
                     <div class="form-group">
                         <label>Occupation</label>
-                        <input type="text" class="form-control" name="occupation" required>
+                        <input type="text" class="form-control" name="occupation" id="occupation" required>
                     </div>
                     <div class="form-group">
                         <label>Rendement</label>
-                        <input type="text" class="form-control" name="rendement" required>
+                        <input type="text" class="form-control" name="rendement" id="rendement" required>
                     </div>
                 </div>
                     <div class="modal-footer">
@@ -141,7 +142,7 @@
             </div>
         </div>
     </div>
-    <!--<?php include 'footer.html' ?>-->
+    <?php include 'footer.html' ?>
 </body>
 
 </html>

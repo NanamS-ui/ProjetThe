@@ -1,4 +1,20 @@
 window.addEventListener("load", function() {
+    window.preRemplirForm = function(parcelleId) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var parcelle = JSON.parse(xhr.responseText);
+                var idparcelle=document.getElementById("id_parcelle");
+                var modifsurface=document.getElementById("modifsurface");
+                var modifvar=document.getElementById("modifvar");
+                idparcelle.value = parcelle.id;
+                modifsurface.value = parcelle.surface;
+                modifvar.value=parcelle.idVarieteDuThe;
+            }
+        };
+        xhr.open("GET", "modifParcelle.php?id=" + parcelleId, false);
+        xhr.send();
+    }
     function getListeParcelle() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
@@ -15,7 +31,7 @@ window.addEventListener("load", function() {
                         td1.innerHTML = donnee[i].id;
                         td2.innerHTML = donnee[i].surface;
                         td3.innerHTML = donnee[i].nom;
-                        td4.innerHTML = '<a href="#editParcelleModal" onclick="preRemplirForm(' + donnee[i].id + ')" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>' +
+                        td4.innerHTML = td4.innerHTML = '<a href="#editParcelleModal" onclick="preRemplirForm(' + donnee[i].id + ')" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>' +
                         '<a href="deleteParcelle.php?id=' + donnee[i].id + '"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
         
 
@@ -57,21 +73,5 @@ window.addEventListener("load", function() {
     getListeParcelle();
     getListeVariete();
 
-    // Function to fill edit form
-    function preRemplirForm(parcelleId) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var parcelle = JSON.parse(xhr.responseText);
-                var idparcelle=document.getElementById("id_parcelle");
-                var modifsurface=document.getElementById("modifsurface");
-                var modifvar=document.getElementById("modifvar");
-                idparcelle.value = parcelle;
-                modifsurface.value = parcelle.surface;
-                modifvar.value=parcelle.idVarieteDuThe;
-            }
-        };
-        xhr.open("GET", "modifParcelle.php?id=" + parcelleId, false);
-        xhr.send();
-    }
+    
 });

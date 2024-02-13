@@ -115,6 +115,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="#">
+                    <input type="hidden" name="id" id="id">
                     <div class="modal-header">
                         <h4 class="modal-title">Edit Category & Spent</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -122,15 +123,15 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Date dépense</label>
-                            <input type="date" class="form-control" name="dtd" required>
+                            <input type="date" class="form-control" name="dtd" id="dtd" required>
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <input type="text" class="form-control" name="descri" required>
+                            <input type="text" class="form-control" name="descri" id="descri" required>
                         </div>
                         <div class="form-group">
                             <label>Valeur</label>
-                            <input type="text" class="form-control" name="val" required>
+                            <input type="text" class="form-control" name="val" id="val" required>
                         </div>
                     </div>
                     <div class="modal-footer">

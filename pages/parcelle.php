@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../assets/CRUD/style.css">
-    <script type="text/javascript" src="../assets/parcelle/index.js"></script>
+    <script type="text/javascript" src="../assets/parcelle/index.js" defer></script>
 
     <script>
         $(document).ready(function () {
@@ -49,6 +49,7 @@
 <body>
 
     <?php include 'header.html' ?>
+    <a href="./modifParcelle.php">Voir</a> 
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -128,7 +129,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-info" value="Save">
+                        <input type="submit" class="btn btn-info" value="save">
                     </div>
                 </form>
             </div>

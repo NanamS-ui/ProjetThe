@@ -1,4 +1,22 @@
 window.addEventListener("load", function() {
+    window.preRemplirForm = function(parcelleId) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var cueilleur = JSON.parse(xhr.responseText);
+                var idCueilleur=document.getElementById("id");
+                var nom=document.getElementById("nom");
+                var genre=document.getElementById("genre");
+                var dtn=document.getElementById("dtn");
+                idCueilleur.value = cueilleur.id;
+                nom.value = cueilleur.nom;
+                genre.value = cueilleur.genre;
+                dtn.value=cueilleur.date_naissance;
+            }
+        };
+        xhr.open("GET", "modifCuielleur.php?id=" + parcelleId, false);
+        xhr.send();
+    }
     function getListeCueilleur() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
@@ -61,20 +79,5 @@ window.addEventListener("load", function() {
     //getListeVariete();
 
     // Function to fill edit form
-    function preRemplirForm(parcelleId) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var parcelle = JSON.parse(xhr.responseText);
-                var idparcelle=document.getElementById("id_parcelle");
-                var modifsurface=document.getElementById("modifsurface");
-                var modifvar=document.getElementById("modifvar");
-                idparcelle.value = parcelle;
-                modifsurface.value = parcelle.surface;
-                modifvar.value=parcelle.idVarieteDuThe;
-            }
-        };
-        xhr.open("GET", "modifParcelle.php?id=" + parcelleId, false);
-        xhr.send();
-    }
+   
 });

@@ -90,6 +90,20 @@ function updateVarieteDeThe($id, $nom, $occupation, $rendement)
 	mysqli_query($db, $query);
 	return "update avec succes";
 }
+function getVarieteDeThe($id){
+	//prend tous les variete de the
+	$db = dbconnect();
+	$query = "select * from variete_du_the where id='$id'";
+	$resultat = mysqli_query($db,$query);
+	$nombre  = mysqli_num_rows($resultat);
+	$variete_du_the = array();
+	if ($nombre>0) {
+		while ($donnees = mysqli_fetch_assoc($resultat)) {
+		$variete_du_the[] = array('id'=>$donnees['id'],'nom'=>$donnees['nom'],'occupation'=>$donnees['occupation'],'rendement'=>$donnees['rendement']);
+		}
+	}
+	return $variete_du_the[0];
+}
 
 
 function getAllParcelle()
@@ -159,6 +173,20 @@ function getIdCueilleur($cueilleur)
 	//return l'id du cueilleur
 	return $cueilleur['id'];
 }
+function getCueilleur($id){
+	//prend tous les variete de the
+	$db = dbconnect();
+	$query = "select * from cueilleur where id='$id'";
+	$resultat = mysqli_query($db,$query);
+	$nombre  = mysqli_num_rows($resultat);
+	$cueilleur = array();
+	if ($nombre>0) {
+		while ($donnees = mysqli_fetch_assoc($resultat)) {
+		$cueilleur[] = array('id'=>$donnees['id'],'nom'=>$donnees['nom'],'genre'=>$donnees['genre'],'date_naissance'=>$donnees['date_naissance']);
+		}
+	}
+	return $cueilleur[0];
+}
 function deleteCueilleur($id)
 {
 	//suppresion d' un cueilleur
@@ -205,6 +233,20 @@ function getIddepense($depense)
 	//return l'id du depense
 	return $depense['id'];
 }
+function getDepense($id){
+	//prend tous les cueilleur
+	$db = dbconnect();
+	$query = "select depense.id as id,date_depense,categorieDepense.categorie as description,valeur from depense join categorieDepense on categorieDepense.id = depense.id_categorie where depense.id = '$id'";
+	$resultat = mysqli_query($db,$query);
+	$nombre  = mysqli_num_rows($resultat);
+	$depense = array();
+	if ($nombre>0) {
+		while ($donnees = mysqli_fetch_assoc($resultat)) {
+		$depense[] = array('id'=>$donnees['id'],'date_depense'=>$donnees['date_depense'],'description'=>$donnees['description'],'valeur'=>$donnees['valeur']);
+		}
+	}
+	return $depense[0];
+}
 function deletedepense($id)
 {
 	//suppresion d' un depense
@@ -243,7 +285,7 @@ function getSalaire()
 	}
 	return $valiny;
 }
-function udpdateSalaire($montant)
+function updateSalaire($montant)
 {
 	//update salaire
 	$db = dbconnect();
