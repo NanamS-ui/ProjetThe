@@ -8,13 +8,15 @@ window.addEventListener("load", function() {
                 var nom=document.getElementById("nom");
                 var rendement=document.getElementById("rendement");
                 var occupation=document.getElementById("occupation");
+                var prix=document.getElementById("PV");
                 idvariete.value = variete.id;
                 nom.value = variete.nom;
                 rendement.value = variete.rendement;
                 occupation.value=variete.occupation;
+                prix.value = variete.prixDeVente;
             }
         };
-        xhr.open("GET", "modifVariete.php?id=" + parcelleId, false);
+        xhr.open("GET", "modifVariete.php?id=" + parcelleId, true);
         xhr.send();
     }
     function getListeVariete() {
@@ -25,15 +27,19 @@ window.addEventListener("load", function() {
                     var donnee = JSON.parse(xhr.responseText);
                     var table = document.getElementById('tab');
                     for (var i = 0; i < donnee.length; i++) {
+                                            console.log(donnee[i]);
+
                         var tr = document.createElement('tr');
                         var td1 = document.createElement('td');
                         var td2 = document.createElement('td');
                         var td3 = document.createElement('td');
                         var td4 = document.createElement('td');
                         var td5=document.createElement('td');
+                        var td6=document.createElement('td');
                         td1.innerHTML = donnee[i].id;
                         td2.innerHTML = donnee[i].nom;
                         td3.innerHTML = donnee[i].occupation;
+                        td6.innerHTML = donnee[i].prixDeVente;
                         td4.innerHTML = donnee[i].rendement;
                         var id = donnee[i].id;
                         td5.innerHTML = '<a href="#editVarieteModal" onclick="preRemplirForm(' + donnee[i].id + ')" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
@@ -43,6 +49,7 @@ window.addEventListener("load", function() {
                         tr.appendChild(td1);
                         tr.appendChild(td2);
                         tr.appendChild(td3);
+                        tr.appendChild(td6);
                         tr.appendChild(td4);
                         tr.appendChild(td5);
                         // Append the row to the table
@@ -51,7 +58,7 @@ window.addEventListener("load", function() {
                 }
             }
         };
-        xhr.open("GET", "listevariete.php", false);
+        xhr.open("GET", "listevariete.php", true);
         xhr.send();
     }
 

@@ -27,20 +27,18 @@
                     <div class="login-wrap p-0">
                         <form action="./traitementloginadmin.php" class="signin-form" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" name="user">
+                                <input type="text" class="form-control" placeholder="Username" name="user" value="admin1">
                             </div>
                             <div class="form-group">
-                                <input id="password-field" type="password" class="form-control" placeholder="Password"
-                                    name="mdp" required>
-                                <span toggle="#password-field"
-                                    class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                <input id="password-field" type="password" class="form-control" placeholder="Password" name="mdp" value="password2" required>
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
                             <?php
                             if (isset($_GET['error']) && $_GET['error'] != null) {
-                                $erreur=$_GET['error']; ?>
+                                $erreur = $_GET['error']; ?>
                                 <strong style="color: red;"><?php echo $erreur ?></strong>
-                            <?php } ?> 
-                            
+                            <?php } ?>
+
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary submit px-3">Sign
                                     In</button><br></br>

@@ -13,7 +13,7 @@ CREATE TABLE variete_du_the (
     occupation DECIMAL(10,2) NOT NULL,
     rendement DECIMAL(10,2) NOT NULL
 );
-
+alter table variete_du_the add column prixDeVente DECIMAL(10,2) not null;
 CREATE TABLE parcelle (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     surface DECIMAL(10,2) NOT NULL,
@@ -38,13 +38,22 @@ CREATE TABLE cueilleur (
 create table salaire(montant DECIMAL(10,2) not null);
 insert into salaire values(100000.00);
 
+create table poidsMinimumJournalier(poids DECIMAL(10,2) not null);
+insert into poidsMinimumJournalier values(10.00);
+
+create table malus(pourcentage DECIMAL(10,2) not null);
+insert into malus values(10.00);
+
+
+create table bonus(pourcentage DECIMAL(10,2) not null);
+insert into bonus values(10.00);
+    
 create table categorieDepense(id int PRIMARY KEY AUTO_INCREMENT,categorie VARCHAR(255) not null);
 
 INSERT INTO categorieDepense (categorie)VALUES
 ('Engrais'),
 ('Carburant'),
 ('Logistique');
-
 
 create table date_de_plantation(date_plantation date not null,id_parcelle int not null, FOREIGN KEY (id_parcelle) references parcelle(id));
 
@@ -66,6 +75,39 @@ create table cueillette(
     ('1998-12-05', 1, 2, 2.00),
     ('2000-07-10', 2, 1, 9.80);
 
+
+create table moisDeRegeneration(id int PRIMARY KEY AUTO_INCREMENT,
+    mois VARCHAR(20) NOT NULL,
+    isRegenerer int not null);
+
+INSERT INTO moisDeRegeneration (mois,isRegenerer) VALUES
+('January',1),
+('February',1),
+('March',0),
+('April',1),
+('May',1),
+('June',0),
+('July',0),
+('August',1),
+('September',0),
+('October',0),
+('November',1),
+('December',1);
+
+INSERT INTO moisDeRegeneration (mois,isRegenerer) VALUES
+('January',1),
+('February',1),
+('March',0),
+('April',1),
+('May',1),
+('June',0),
+('July',0),
+('August',1),
+('September',0),
+('October',0),
+('November',1),
+('December',1);
+
 -- Données de test pour la table 'user'
 INSERT INTO user (login, pw, type) VALUES
 ('user1', 'password1', 'user'),
@@ -78,12 +120,15 @@ INSERT INTO variete_du_the (nom, occupation, rendement) VALUES
 ('Variété B', 1.8, 8.5),
 ('Variété C', 1.6, 9.3);
 
+update variete_du_the set prixDeVente = 100.00 where id = 1;
+update variete_du_the set prixDeVente = 200.00 where id = 2;
+update variete_du_the set prixDeVente = 300.00 where id = 3;    
 -- Données de test pour la table 'parcelle'
 INSERT INTO parcelle (surface, idVarieteDuThe) VALUES
 (20.5, 1),
 (15.7, 2),
 (30.2, 3);
-
+    
 -- Données de test pour la table 'cueilleur'
 INSERT INTO cueilleur (nom, genre, date_naissance) VALUES
 ('Jean Dupont', 'M', '1990-05-15'),

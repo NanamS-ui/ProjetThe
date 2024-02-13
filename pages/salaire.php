@@ -75,6 +75,51 @@
             </div>
         </div>
     </div>
+    <div class="services_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="services_taital">Poids Minimal</h1><br></br>
+                    <h2 id="poidsMinimal"></h2>
+                    <div class="moremore_bt"><a href="#editPoidsMin" class="edit" data-toggle="modal"><i
+                                class="material-icons" data-toggle="tooltip" title="Edit"></i>Edit</a></div>
+                </div>
+                <div class="col-md-4">
+                    <div><img src="../assets/poids.jpg" class="image_1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="services_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="services_taital">Bonus</h1><br></br>
+                    <h2 id="bonus"></h2>
+                    <div class="moremore_bt"><a href="#editBonus" class="edit" data-toggle="modal"><i
+                                class="material-icons" data-toggle="tooltip" title="Edit"></i>Edit</a></div>
+                </div>
+                <div class="col-md-4">
+                    <div><img src="../assets/bonus.png" class="image_1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="services_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="services_taital">Mallus</h1><br></br>
+                    <h2 id="mallus"></h2>
+                    <div class="moremore_bt"><a href="#editMallus" class="edit" data-toggle="modal"><i
+                                class="material-icons" data-toggle="tooltip" title="Edit"></i>Edit</a></div>
+                </div>
+                <div class="col-md-4">
+                    <div><img src="../assets/mallus.jpg" class="image_1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- include 'footer.html' -->
     <!-- Edit Modal HTML -->
     <div id="editSalaire" class="modal fade">
@@ -89,6 +134,75 @@
                         <div class="form-group">
                             <label>salaire</label>
                             <input type="text" class="form-control" name="salaire" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-info" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Poids HTML -->
+    <div id="editPoidsMin" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="modifpoids.php" method="post">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Poids Minimal</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Poids Minimal</label>
+                            <input type="text" class="form-control" name="poids" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-info" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Bonus HTML -->
+    <div id="editBonus" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="modifbonus.php" method="post">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Bonus</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Bonus</label>
+                            <input type="text" class="form-control" name="bonus" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-info" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Mallus HTML -->
+    <div id="editMallus" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="modifmallus.php" method="post">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Mallus</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Mallus</label>
+                            <input type="text" class="form-control" name="mallus" required>
                         </div>
                     </div>
                     <div class="modal-footer">

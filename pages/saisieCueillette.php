@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="name">Poids</label>
-                                    <input type="text" class="form-control" placeholder="Poids" name="poids" required>
+                                    <input type="text" class="form-control" placeholder="Poids" name="poids" id="poids" required>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit"

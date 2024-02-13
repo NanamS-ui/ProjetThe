@@ -16,37 +16,37 @@
     <script type="text/javascript" src="../assets/variete/index.js"></script>
 
     <script>
-    $(document).ready(function() {
-        // Activate tooltip
-        $('[data-toggle="tooltip"]').tooltip();
+        $(document).ready(function() {
+            // Activate tooltip
+            $('[data-toggle="tooltip"]').tooltip();
 
-        // Select/Deselect checkboxes
-        var checkbox = $('table tbody input[type="checkbox"]');
-        $("#selectAll").click(function() {
-            if (this.checked) {
-                checkbox.each(function() {
-                    this.checked = true;
-                });
-            } else {
-                checkbox.each(function() {
-                    this.checked = false;
-                });
-            }
+            // Select/Deselect checkboxes
+            var checkbox = $('table tbody input[type="checkbox"]');
+            $("#selectAll").click(function() {
+                if (this.checked) {
+                    checkbox.each(function() {
+                        this.checked = true;
+                    });
+                } else {
+                    checkbox.each(function() {
+                        this.checked = false;
+                    });
+                }
+            });
+            checkbox.click(function() {
+                if (!this.checked) {
+                    $("#selectAll").prop("checked", false);
+                }
+            });
         });
-        checkbox.click(function() {
-            if (!this.checked) {
-                $("#selectAll").prop("checked", false);
-            }
-        });
-    });
     </script>
 </head>
 
 <body>
     <?php if (isset($_GET["message"]) && $_GET["message"] != null) { ?>
-    <script>
-    alert("<?php echo htmlspecialchars($_GET["message"]); ?>")
-    </script>
+        <script>
+            alert("<?php echo htmlspecialchars($_GET["message"]); ?>")
+        </script>
     <?php } ?>
     <?php include 'header.html' ?>
     <div class="container-xl">
@@ -58,10 +58,8 @@
                             <h2>Manage <b>Variété du Thé</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="#addVarieteModal" class="btn btn-success" data-toggle="modal"><i
-                                    class="material-icons">&#xE147;</i> <span>Add New Variété</span></a>
-                            <a href="#deleteVarieteModal" class="btn btn-danger" data-toggle="modal"><i
-                                    class="material-icons">&#xE15C;</i> <span>Delete Variété</span></a>
+                            <a href="#addVarieteModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Variété</span></a>
+                            <a href="#deleteVarieteModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete Variété</span></a>
                         </div>
                     </div>
                 </div>
@@ -71,7 +69,9 @@
                             <th>Id</th>
                             <th>Nom</th>
                             <th>Occupation</th>
+                            <th>Prix de Vente</th>
                             <th>Rendement</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,6 +98,10 @@
                         <div class="form-group">
                             <label>Occupation</label>
                             <input type="text" class="form-control" name="occupation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Prix de vente</label>
+                            <input type="text" class="form-control" name="prix" id="prix" required>
                         </div>
                         <div class="form-group">
                             <label>Rendement</label>
@@ -130,6 +134,10 @@
                         <div class="form-group">
                             <label>Occupation</label>
                             <input type="text" class="form-control" name="occupation" id="occupation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Prix de Vente</label>
+                            <input type="text" class="form-control" name="prix" id="PV" required>
                         </div>
                         <div class="form-group">
                             <label>Rendement</label>

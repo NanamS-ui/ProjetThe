@@ -2,9 +2,12 @@
 include '../inc/fonction.php';
 $dateDebut = $_GET['dateDebut'];
 $dateFin = $_GET['dateFin'];
-$poidsEntreDate = getPoidsTotalCueilliRehetraEntreDate($dateDebut, $dateFin);
 $CoutRevient = getCoutDeRevient($dateDebut, $dateFin);
 $poidsRestant = getPoidsRestantRehetra();
+$venteTotal = getMontantDeVenteTotal($dateDebut, $dateFin);
+$benefice = getBenefice($dateDebut, $dateFin);
+$depense = getSommeDepense($dateDebut, $dateFin);
+$poidsEntreDate = getPoidsTotalCueilliRehetraEntreDate($dateDebut, $dateFin);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,8 +41,7 @@ $poidsRestant = getPoidsRestantRehetra();
 
 <body class="goto-here">
     <?php include 'headerUser.html' ?>
-    <section class="ftco-section ftco-counter img" id="section-counter"
-        style="background-image: url(../assets/cueillete.jpg);">
+    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(../assets/cueillete.jpg);">
         <div class="container">
             <div class="row justify-content-center py-5">
                 <div class="col-md-10">
@@ -55,7 +57,7 @@ $poidsRestant = getPoidsRestantRehetra();
                         <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18 text-center">
                                 <div class="text">
-                                    <strong class="number" data-number="<?php echo $poidsRestant ?>">Kg</strong>
+                                    <strong class="number" data-number="<?php echo $poidsRestant ?>"></strong>
                                     <span>Poids restants sur les parcelles (Kg) </span>
                                 </div>
                             </div>
@@ -63,8 +65,32 @@ $poidsRestant = getPoidsRestantRehetra();
                         <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18 text-center">
                                 <div class="text">
-                                    <strong class="number" data-number="<?php echo $CoutRevient ?>">Ar</strong>
-                                    <span>Coùt de revient (Ar)</span>
+                                    <strong class="number" data-number="<?php echo $venteTotal ?>"></strong>
+                                    <span>Montant de vente (€)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="<?php echo $depense ?>"></strong>
+                                    <span>Dépenses (€) </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="<?php echo $benefice ?>"></strong></strong>
+                                    <span>Bénéfices (€) </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="<?php echo $CoutRevient ?>"></strong>
+                                    <span>Coùt de revient (€)</span>
                                 </div>
                             </div>
                         </div>
