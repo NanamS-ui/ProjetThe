@@ -412,6 +412,10 @@ function kiloCueilliDepuisLaRegeneration($idParcelle, $date)
 	}
 	return $valiny;
 }
+
+
+
+
 function kiloRestant($idParcelle, $date)
 {
 	//kilo restant sur cette parcelle en cette date en parametre
@@ -420,6 +424,38 @@ function kiloRestant($idParcelle, $date)
 	$kiloRehetra = kiloParParcelleDepuisLaRegeneration($idParcelle, $date);
 	$kiloCueilli = kiloCueilliDepuisLaRegeneration($idParcelle, $date);
 	return $kiloRehetra - $kiloCueilli;
+}
+
+
+function getMontantPoidsRestant($date)
+{
+	//maka le montant amle sary io
+	$parcelles = getAllParcelle();
+	$somme = 0;
+	for ($i = 0; $i < count($parcelles); $i++) {
+		$somme += kiloRestant($parcelles[$i]['id'], $date) * prixDeVenteParParcelle($parcelles[$i]['id']);
+	}
+	return $somme;
+}
+
+function getListPrevision($date)
+{
+	//list provision
+	$parcelles = getAllParcelle();
+	$resultat = array();
+	for ($i = 0; $i < count($parcelles); $i++) {
+		$resultat[] = array('id' => $parcelles[$i]['id'], 'image' => imageParParcelle($parcelles[$i]['id']), 'poidsRestant' => kiloRestant($parcelles[$i]['id'], $date), 'nombreDePied' => getNombreDePied($parcelles[$i]['id']), 'nomVarieteDuThe' => $parcelles[$i]['nom'], 'surface' => $parcelles[$i]['surface']);
+	}
+	return $resultat;
+}
+function getNombreDePied($id)
+{
+	$parcelle = getParcelleParId($id);
+	$variete_du_the = getVarieteDuTheParId($parcelle['idVarieteDuThe']);
+	$surfacePied = $variete_du_the['occupation'];
+	$surfaceParcelle = $parcelle['surface'];
+	$nombreDePied = $surfaceParcelle / $surfacePied;
+	return $nombreDePied;
 }
 function getCueilletteAll()
 {
@@ -503,9 +539,9 @@ function getPoidsTotalRehetra()
 	return $somme;
 }
 
-function getPoidsRestantRehetra()
+function getPoidsRestantRehetra($date)
 {
-	$date = date("Y-m-d");
+	//$date = date("Y-m-d");
 	$parcelles = getAllParcelle();
 	$somme = 0;
 	for ($i = 0; $i < count($parcelles); $i++) {
@@ -608,14 +644,23 @@ function getLaDateDeRegenererFarany($date)
 
 		$dateTimestamp = mktime(0, 0, 0, $moisFarany, $jours, $annee);
 		$dateFarany = date("Y-m-d", $dateTimestamp);
-		return $dateFarany;
+		//return $dateFarany;
 	} else {
 		$annee = date("Y", strtotime($date)) - 1;
 
 		$dateTimestamp = mktime(0, 0, 0, $moisFarany, $jours, $annee);
 		$dateFarany = date("Y-m-d", $dateTimestamp);
-		return $dateFarany;
+		//return $dateFarany;
 	}
+	$jourVoalohany = 01;
+	$moisVoalohany = 01;
+	$anneeVoalohany = 2023;
+	$dateTimestampVoalohany = mktime(0, 0, 0, $moisVoalohany, $jourVoalohany, $anneeVoalohany);
+	$dateVoalohany = date("Y-m-d", $dateTimestampVoalohany);
+	if ($dateFarany < $dateVoalohany) {
+		$dateFarany = $dateVoalohany;
+	}
+	return $dateFarany;
 }
 function getNombreDeMois($date)
 {
@@ -769,7 +814,7 @@ function getSommePaiementParCueilleur($idCueilleur, $dateDebut, $dateFin)
 	$valiny = array('date' => 'Total', 'nomCueilleur' => $resultat[0]['nomCueilleur'], 'poids' => $sommePoids, 'bonus' => $sommeBonus, 'malus' => $sommeMalus, 'montantPaiement' => $sommePaiement);
 	return $valiny;
 }
-function getListPaiement($dateDebut, $dateFin)
+function p($dateDebut, $dateFin)
 {
 	$resultat = array();
 	$date = strtotime($dateDebut);
@@ -794,7 +839,7 @@ function nombreSaison()
 	$nombre  = mysqli_num_rows($resultat);
 	if ($nombre > 0) {
 		while ($donnees = mysqli_fetch_assoc($resultat)) {
-			$valiny = $donnees['somme'];
+			$valiny = $donnees['sommme'];
 		}
 	}
 	return $valiny;
@@ -889,6 +934,19 @@ function prixDeVenteParParcelle($idParcelle)
 	if ($nombre > 0) {
 		while ($donnees = mysqli_fetch_assoc($resultat)) {
 			$cueillette = $donnees['prixDeVente'];
+		}
+	}
+	return $cueillette;
+}
+function imageParParcelle($idParcelle)
+{
+	$db = dbconnect();
+	$query = "select parcelle.id,image from variete_du_the join parcelle on parcelle.idVarieteDuThe=variete_du_the.id where parcelle.id = '$idParcelle'";
+	$resultat = mysqli_query($db, $query);
+	$nombre  = mysqli_num_rows($resultat);
+	if ($nombre > 0) {
+		while ($donnees = mysqli_fetch_assoc($resultat)) {
+			$cueillette = $donnees['image'];
 		}
 	}
 	return $cueillette;

@@ -31,8 +31,7 @@ window.addEventListener("load", function() {
                         td1.innerHTML = donnee[i].id;
                         td2.innerHTML = donnee[i].surface;
                         td3.innerHTML = donnee[i].nom;
-                        td4.innerHTML = td4.innerHTML = '<a href="#editParcelleModal" onclick="preRemplirForm(' + donnee[i].id + ')" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>' +
-                        '<a href="deleteParcelle.php?id=' + donnee[i].id + '"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+                        td4.innerHTML = td4.innerHTML = '<a href="#editParcelleModal" onclick="preRemplirForm(' + donnee[i].id + ')" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';
         
 
                         // Append the cells to the row

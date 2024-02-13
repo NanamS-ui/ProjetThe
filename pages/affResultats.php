@@ -3,7 +3,7 @@ include '../inc/fonction.php';
 $dateDebut = $_GET['dateDebut'];
 $dateFin = $_GET['dateFin'];
 $CoutRevient = getCoutDeRevient($dateDebut, $dateFin);
-$poidsRestant = getPoidsRestantRehetra();
+$poidsRestant = getPoidsRestantRehetra($dateFin);
 $venteTotal = getMontantDeVenteTotal($dateDebut, $dateFin);
 $benefice = getBenefice($dateDebut, $dateFin);
 $depense = getSommeDepense($dateDebut, $dateFin);
